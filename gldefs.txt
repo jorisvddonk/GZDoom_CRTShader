@@ -1,0 +1,6 @@
+HardwareShader PostProcess screen
+{
+	Name "crt"
+	Shader "shaders/crt.fp" 330
+	Uniform float timer
+}

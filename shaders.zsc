@@ -1,0 +1,8 @@
+Class ShaderHudHandler : EventHandler
+{
+    override void RenderOverlay(RenderEvent e)
+    {
+        PlayerInfo p = players[consoleplayer];
+        Shader.SetEnabled(players[consoleplayer], "crt", true);
+    }
+}
