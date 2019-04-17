@@ -72,6 +72,9 @@ vec2 curve(vec2 uv)
 }
 void main()
 {
+	// Adjust timer a bit
+	float Timer = timer * 0.05;
+	
 	// Curve
 	vec2 FragCoord = vec2( TexCoord.x, TexCoord.y );
     vec2 q = FragCoord.xy;
@@ -83,7 +86,7 @@ void main()
     
 	// Main color, Bleed
 	vec3 col;
-	float x =  sin(0.1*timer+uv.y*13.0)*sin(0.23*timer+uv.y*19.0)*sin(0.3+0.11*timer+uv.y*23.0)*0.0012;
+	float x =  sin(0.1*Timer+uv.y*13.0)*sin(0.23*Timer+uv.y*19.0)*sin(0.3+0.11*Timer+uv.y*23.0)*0.0012;
 	float o =sin(FragCoord.y*1.5)/iResolution.x;
 	x+=o*0.25;
     col.r = blur(InputTexture,vec2(x+uv.x+0.0009,uv.y+0.0009),iResolution.y/800.0).x+0.02;
@@ -92,7 +95,7 @@ void main()
 	float i = clamp(col.r*0.299 + col.g*0.587 + col.b*0.114, 0.0, 1.0 );
 	
 	// Glow
-	vec3 glow = (12.5*i*i)*pow(clamp(blur(InputTexture,vec2(x+uv.x+0.2*sin(uv.x + 10.0*timer)*0.012,uv.y + 0.2*sin( uv.y + 7.3*timer)*0.012),4.0)-0.3,0.0,1.0),vec3(5.0));
+	vec3 glow = (12.5*i*i)*pow(clamp(blur(InputTexture,vec2(x+uv.x+0.2*sin(uv.x + 10.0*Timer)*0.012,uv.y + 0.2*sin( uv.y + 7.3*Timer)*0.012),4.0)-0.3,0.0,1.0),vec3(5.0));
 	glow = 0.75*clamp( glow, 0.0, 1.0 );
 	col += glow;
 	
@@ -101,9 +104,9 @@ void main()
 
 	// Ghosting
     float ghs = 0.6;
-	vec3 r = blur(InputTexture,vec2(x-0.014*1.0, -0.027)+0.003*vec2( 0.35*sin(1.0/7.0 + 35.0*uv.y + 0.9*timer), 0.55*sin( 2.0/7.0 + 10.0*uv.y + 2.37*timer) )+vec2(uv.x+0.001,uv.y+0.001),5.5+1.3*sin( 3.0/9.0 + 31.0*uv.y + 1.70*timer)).xyz*vec3(0.5,0.25,0.25);
-	vec3 g = blur(InputTexture,vec2(x-0.019*1.0, -0.020)+0.003*vec2( 0.35*sin(1.0/9.0 + 35.0*uv.y + 0.5*timer), 0.55*sin( 2.0/9.0 + 10.0*uv.y + 2.50*timer) )+vec2(uv.x+0.000,uv.y-0.002),5.4+1.3*sin( 3.0/3.0 + 71.0*uv.y + 1.90*timer)).xyz*vec3(0.25,0.5,0.25);
-	vec3 b = blur(InputTexture,vec2(x-0.017*1.0, -0.003)+0.003*vec2( 0.35*sin(2.0/3.0 + 35.0*uv.y + 0.7*timer), 0.55*sin( 2.0/3.0 + 10.0*uv.y + 2.63*timer) )+vec2(uv.x-0.002,uv.y+0.000),5.3+1.3*sin( 3.0/7.0 + 91.0*uv.y + 1.65*timer)).xyz*vec3(0.25,0.25,0.5);
+	vec3 r = blur(InputTexture,vec2(x-0.014*1.0, -0.027)+0.003*vec2( 0.35*sin(1.0/7.0 + 35.0*uv.y + 0.9*Timer), 0.55*sin( 2.0/7.0 + 10.0*uv.y + 2.37*Timer) )+vec2(uv.x+0.001,uv.y+0.001),5.5+1.3*sin( 3.0/9.0 + 31.0*uv.y + 1.70*Timer)).xyz*vec3(0.5,0.25,0.25);
+	vec3 g = blur(InputTexture,vec2(x-0.019*1.0, -0.020)+0.003*vec2( 0.35*sin(1.0/9.0 + 35.0*uv.y + 0.5*Timer), 0.55*sin( 2.0/9.0 + 10.0*uv.y + 2.50*Timer) )+vec2(uv.x+0.000,uv.y-0.002),5.4+1.3*sin( 3.0/3.0 + 71.0*uv.y + 1.90*Timer)).xyz*vec3(0.25,0.5,0.25);
+	vec3 b = blur(InputTexture,vec2(x-0.017*1.0, -0.003)+0.003*vec2( 0.35*sin(2.0/3.0 + 35.0*uv.y + 0.7*Timer), 0.55*sin( 2.0/3.0 + 10.0*uv.y + 2.63*Timer) )+vec2(uv.x-0.002,uv.y+0.000),5.3+1.3*sin( 3.0/7.0 + 91.0*uv.y + 1.65*Timer)).xyz*vec3(0.25,0.25,0.5);
 	
 	col += vec3(ghs*(1.0-0.299))*pow(clamp(3.0*r,0.0,1.0),vec3(2.0))*i;
     col += vec3(ghs*(1.0-0.587))*pow(clamp(3.0*g,0.0,1.0),vec3(2.0))*i;
@@ -118,7 +121,7 @@ void main()
 	col *= vec3(vig);
 
 	// Scanlines
-	float scans = clamp( 0.35+0.18*sin(6.0*timer+uv.y*iResolution.y*1.5), 0.0, 1.0);
+	float scans = clamp( 0.35+0.18*sin(6.0*Timer+uv.y*iResolution.y*1.5), 0.0, 1.0);
 	float s = pow(scans,0.9);
 	col = col*vec3( s) ;
 
@@ -126,11 +129,11 @@ void main()
 	col*=1.0-0.23*vec3(clamp((mod(FragCoord.x, 2.0)-1.0)*2.0,0.0,1.0));
 
 	// Flicker
-    col *= 1.0+0.0017*sin(300.0*timer);
+    col *= 1.0+0.0017*sin(300.0*Timer);
 
 	// Noise
 	vec2 seed = floor(uv*iResolution.xy*0.5)/iResolution.xy;
-	col *= vec3( 1.0 ) - 0.15*vec3( rand( seed+0.00001*timer),  rand( seed+0.000011*timer + 0.3 ),  rand( seed+0.000012*timer+ 0.5 )  );
+	col *= vec3( 1.0 ) - 0.15*vec3( rand( seed+0.00001*Timer),  rand( seed+0.000011*Timer + 0.3 ),  rand( seed+0.000012*Timer+ 0.5 )  );
 	
 	// Tone map
 	col = filmic( col );
@@ -141,10 +144,5 @@ void main()
 	if (uv.y < 0.0 || uv.y > 1.0)
 		col *= 0.0;
 		
-
-	// Crossfade
-    float comp = smoothstep( 0.1, 0.9, sin(timer) );
-    col = mix( col, oricol, comp );
-
     FragColor = vec4(col,1.0);
 }

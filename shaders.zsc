@@ -4,5 +4,6 @@ Class ShaderHudHandler : EventHandler
     {
         PlayerInfo p = players[consoleplayer];
         Shader.SetEnabled(players[consoleplayer], "crt", true);
+        Shader.SetUniform1f(players[consoleplayer], "crt", "timer", gametic);
     }
 }
