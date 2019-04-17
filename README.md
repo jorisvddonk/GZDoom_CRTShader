@@ -2,7 +2,8 @@
 
 Adapted to work in GZDoom, from https://www.shadertoy.com/view/4sSGDK
 
-![Alt text](/screenshots/1.png?raw=true "Screenshot")
+![Screenshot 1](/screenshots/1.png?raw=true "Screenshot")
+![Screenshot 2](/screenshots/2.jpg?raw=true "Screenshot")
 
 ## Installation
 
