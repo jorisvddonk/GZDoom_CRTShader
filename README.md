@@ -2,6 +2,10 @@
 
 Adapted to work in GZDoom, from https://www.shadertoy.com/view/4sSGDK
 
+Shader originaly by [Mattias Gustavsson](https://twitter.com/Mattias_G)
+
+If you don't need GZDoom's various additions, and want to play vanillia Doom with a CRT shader, you should probably check out Mattias' [Doom-CRT](https://mattiasgustavsson.com/doom-crt) instead!
+
 ![Screenshot 1](/screenshots/1.png?raw=true "Screenshot")
 ![Screenshot 2](/screenshots/2.jpg?raw=true "Screenshot")
 
